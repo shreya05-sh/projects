@@ -74,21 +74,7 @@ public:
 
     int getPoints() { return points; }//returns the current points
     void setPoints(int p) { points = p; }//helps in setting the point to the value a player accumulated when he played the game again(i.e. loads the game again)
-    virtual string getType() { return "Pet"; }//virtual function that'll help the pet to have different types....(no idea what it does)
-    //below is a function to store the details of pettype,name and points accumulated so far in a file.
-    /*
-    this is also a virtual function...and we have created a reference object for file
-    Virtual function= it is written in the base class and is overriden by the derived class. 
-    It uses a concept of Runtime Polymorphism.
-    This function will perform differently depending on the object that calls this function.
-    Why is it necessary?? Because if we look at the saveProgress function, we are saving the type of the pet as well.\
-    so if it was not A virtual function...everytime we would have stored the pet type as Pet...and we would never know if our pet is a cat,dog,or dragon.
-    
-    beause of this function...on reloading the game again, our function loadgame can easily create another pet of it's respective type,
-    depending upon the type retrieved.
-    
-    this is a great example of dynamic polymorphism	
-    */
+    virtual string getType() { return "Pet"; }
     virtual void saveProgress(ofstream &file) { file << getType() << " " << name << " " << points << endl; }
 };
 
@@ -198,28 +184,6 @@ Pet* loadGame() {
     }
     return NULL;
 }
-/*
-An object pointer is a pointer that basically points to an object of a class.
-
-why didn't we do Dog mydog, or something similar to cat class....well, if we would have done that then, when the time would have come for evolution,
-it would've failed because we would have written something like- Dog mydog= new Dragon("drako");
-this would fail immediately because a dog can't become dragon...
-hence the object pointer comes in handy....it makes sure to act like the object it's pointing to.
-using the arrow is just the replacement of writing- (*mydog).getType();
-dynamic binding-- calls the correct function based on the object type
-*/
-
-
-
-/*
-Object slicing....another benefit of using the object pointer is that it's preventing the object slicing
-now object slicing occurs when, we try to assign a derived class object to a base class object...
-for example- if we wrote- 
-Pet mypet=Dog("Brooks"); when we write this line...it c++ copies the object and when it copies it only copies the base class part.
-this would forcibly convert the dog class object to an object of the base class and force it to behave as a simple pet...an dslice off it's unique features...this is called object slicing
-
-
-*/
 int main() {
 	srand(time(0));
 	string weather = getRandomWeather();
